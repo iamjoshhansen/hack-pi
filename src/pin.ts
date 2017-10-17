@@ -4,9 +4,10 @@ import Emitter from './emitter';
 import { Gpio } from 'onoff';
 /*
 import Gpio from './onoff';
-console.log('!!!!!!!!!!!!!!!!!!!!!!!!!');
-console.log('     Using Fake Pins     ');
-console.log('!!!!!!!!!!!!!!!!!!!!!!!!!');
+console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
+console.log('\x1b[35m%s\x1b[0m','     Using Fake Pins     ');
+console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
+console.log('');
 */
 
 // export type ValidPinNumber = 7|8|10|11|12|13|15|16|18|19|21|22|23|24|26|27|28|29|31|32|33|35|36|37|38|40;
