@@ -17,10 +17,12 @@
   ],
   "author": "Joshua Hansen",
   "dependencies": {
-    "@types/onoff": "0.0.27",
-    "@types/socket.io": "^1.4.31",
     "axios": "^0.16.2",
     "onoff": "^1.1.7",
     "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/onoff": "0.0.27",
+    "@types/socket.io": "^1.4.31"
   }
 }
