@@ -19,7 +19,18 @@ export default class Gpio {
 
   }
 
-  write (val:0|1, callback?:Function) {
+  write (val:0|1, callback:(err:Error, value:number) => void) {
+    if (this.val !== val) {
+      this.val = val;
+      this.log((this.val == 1) ? 'on' : 'off');
+      this.ev.trigger('change', this.val);
+      setTimeout(() => {
+        callback.call(null, null, val);
+      }, 1);
+    }
+  }
+
+  writeSync (val:0|1) {
     if (this.val !== val) {
       this.val = val;
       this.log((this.val == 1) ? 'on' : 'off');
@@ -31,7 +42,7 @@ export default class Gpio {
     return this.val;
   }
 
-  watch (callback:Function) {
+  watch (callback:(error:Error, value:number) => void) {
     this.ev.on('change', (val:0|1) => {
       callback.call(null, null, val);
     });

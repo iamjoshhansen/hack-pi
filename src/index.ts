@@ -32,7 +32,18 @@ green_led.followPin(circle_button);
 
 circle_button.on('activate', () => {
   desk_lamp.toggle();
-})
+});
+
+// setInterval(() => {
+//   console.log('-------');
+//   circle_button.pin.writeSync((circle_button.pin.readSync() === 0) ? 1 : 0);
+// }, 5000);
+
+
+
+
+
+
 
 const io:SocketIO.Server = require('socket.io')();
 
@@ -69,3 +80,4 @@ io.on('connection', (socket:SocketIO.Socket) => {
 });
 
 io.listen(3000);
+log('Listening on http://localhost:3000/');

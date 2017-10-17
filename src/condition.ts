@@ -10,7 +10,7 @@ export default class Condition extends Emitter {
   log:logType;
   private state:boolean;
 
-  constructor (label:string, initialState:boolean, rules?:Function) {
+  constructor (label:string, initialState:boolean, rules?:(condition:Condition) => void) {
     super();
     this.label = label;
     this.state = initialState;
@@ -46,7 +46,7 @@ export default class Condition extends Emitter {
     return this.set( ! this.state);
   }
 
-  on (event:ValidEvents, cb:Function) {
+  on (event:ValidEvents, cb:(...args:Array<any>) => void) {
     return super.on(event, cb);
   }
 

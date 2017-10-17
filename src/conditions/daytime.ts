@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AxiosResponse } from 'axios';
 import Condition from '../condition';
 import Deferred from  '../deferred';
 import { coords } from '../config';
@@ -16,10 +17,6 @@ const guess = Math.abs(new Date().getHours() - 12) < 6;
 
 export default new Condition('daytime', guess, (self:Condition) => {
 
-  self.on('change', (state:boolean) => {
-
-  });
-
   function getTimes () : Deferred {
     const now:Date = new Date();
     const today:string = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
@@ -28,7 +25,7 @@ export default new Condition('daytime', guess, (self:Condition) => {
     const dfr:Deferred = new Deferred();
 
     axios(url)
-      .then((response) => {
+      .then((response:AxiosResponse) => {
 
         /* SAMPLE RESPONSE DATA
         {
@@ -57,7 +54,7 @@ export default new Condition('daytime', guess, (self:Condition) => {
 
         dfr.resolve(resolution);
       })
-      .catch((err) => {
+      .catch((err:Error) => {
         console.warn('Condition Daytime Lookup Error');
         console.error(err);
         dfr.reject(err);

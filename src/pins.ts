@@ -1,4 +1,3 @@
-import Pin from './pin';
 import PinOut from './pin-out';
 import PinIn from './pin-in';
 
@@ -106,6 +105,6 @@ export const green_led = new PinOut({
 
 export const circle_button = new PinIn({
   "id": "circle_button",
-  "label": "Green Circle LED",
+  "label": "Green Circle Button",
   "pin": 20,
 });

@@ -1,8 +1,9 @@
 import axios from 'axios';
-import debug = require("debug");
+import logger from './logger';
+import { logType } from './logger';
 
 export default (name:string|number, event:string|number, key:string|number) => {
-  const log:debug.IDebugger = debug(`app.webhook.${name}`);
+  const log:logType = logger(`app.webhook.${name}`);
 
   return (v1:string, v2?:string|number, v3?:string|number) => {
 

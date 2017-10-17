@@ -49,7 +49,7 @@ export default class Deferred {
     return this;
   }
 
-  done(callback:Function) : this {
+  done(callback:(...args:Array<any>) => void) : this {
     switch (this.state) {
       case 'pending':
         this._callbacks.push({
@@ -66,7 +66,7 @@ export default class Deferred {
       return this;
   }
 
-  fail(callback:Function) : this {
+  fail(callback:(...args:Array<any>) => void) : this {
     switch (this.state) {
       case 'pending':
         this._callbacks.push({
@@ -83,7 +83,7 @@ export default class Deferred {
     return this;
   }
 
-  always(callback:Function) : this {
+  always(callback:(...args:Array<any>) => void) : this {
     switch (this.state) {
       case 'pending':
         this._callbacks.push({

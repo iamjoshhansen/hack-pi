@@ -1,12 +1,12 @@
 export default class Emiter {
 
-  private _callbacks:{[ev:string]:Array<Function>};
+  private _callbacks:{[ev:string]:Array<(...args:Array<any>) => void>};
 
   constructor () {
     this._callbacks = {};
   }
 
-  on (ev:string, cb:Function) : this {
+  on (ev:string, cb:(...args:Array<any>) => void) : this {
     if ( ! (ev in this._callbacks)) {
       this._callbacks[ev] = [];
     }
