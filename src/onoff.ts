@@ -33,7 +33,7 @@ export default class Gpio {
   writeSync (val:0|1) {
     if (this.val !== val) {
       this.val = val;
-      this.log((this.val == 1) ? 'on' : 'off');
+      this.log((this.val == 1) ? 'off' : 'on');
       this.ev.emit('change', this.val);
     }
   }
