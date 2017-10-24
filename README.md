@@ -12,7 +12,16 @@ npm install
 tsc
 ```
 
-## run
+## run (dev)
+```
+npm run dev
+```
+
+## compile for prod
+```
+webpack
+```
+
+## run (prod)
 ```
 npm run start
-```
