@@ -16,17 +16,19 @@ export default class PinOut extends Pin {
       pin: params.pin,
       mode: 'out',
     });
+
+    this.pin.writeSync(1);
   }
 
   write (state:boolean) : this {
     if (this.state !== state) {
       this.state = state;
       this.log(state ? 'on' : 'off');
-      this.pin.write(state ? 1 : 0, (err:Error) => {
-        this.trigger('error', err);
+      this.pin.write(state ? 0 : 1, (err:Error) => {
+        this.emit('error', err);
       });
-      this.trigger('change', state);
-      this.trigger(state ? 'activate' : 'deactivate');
+      this.emit('change', state);
+      this.emit(state ? 'activate' : 'deactivate');
     }
 
     return this;

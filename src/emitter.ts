@@ -24,17 +24,10 @@ export default class Emiter {
     return this;
   }
 
-  trigger (ev:string, args?:any) : this {
-
-    if ( ! (args instanceof Array)) {
-      args = [args];
-    }
-
-    var self = this;
-
+  emit (ev:string, ...args:Array<any>) : this {
     if (ev in this._callbacks) {
       this._callbacks[ev].forEach((cb) => {
-        cb.apply(self, args);
+        cb.apply(this, args);
       });
     }
 

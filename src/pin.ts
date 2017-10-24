@@ -1,5 +1,5 @@
-import logger from './logger';
-import { logType } from './logger';
+import logger from './util/logger';
+import { logType } from './util/logger';
 import Emitter from './emitter';
 import { Gpio } from 'onoff';
 /*
@@ -8,6 +8,16 @@ console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
 console.log('\x1b[35m%s\x1b[0m','     Using Fake Pins     ');
 console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
 console.log('');
+*/
+
+/*
+const Gpio    = require( (process.platform == 'darwin') ? './onoff' : 'onoff').Gpio;
+interface GpioPin {
+  write: Function,
+  writeSync: Function,
+  readSync: Function,
+  watch: Function,
+}
 */
 
 // export type ValidPinNumber = 7|8|10|11|12|13|15|16|18|19|21|22|23|24|26|27|28|29|31|32|33|35|36|37|38|40;
@@ -28,7 +38,7 @@ export default class Pin extends Emitter {
   log:logType;
   id:ValidPinNumber;
   state:boolean;
-  pin:Gpio;
+  pin:GpioPin;
   label:string;
 
   constructor (opts:pinConstructor) {

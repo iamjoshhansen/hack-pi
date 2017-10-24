@@ -18,12 +18,12 @@ export default class PinIn extends Pin {
     this.pin.watch((err:Error, value:0|1) => {
       if (err) {
         this.log('error', err);
-        this.trigger('error', err);
+        this.emit('error', err);
       }
 
       this.log((value === 1) ? 'on' : 'off');
-      this.trigger('change', value === 1);
-      this.trigger((value === 1) ? 'activate' : 'deactivate');
+      this.emit('change', value === 1);
+      this.emit((value === 1) ? 'activate' : 'deactivate');
     });
   }
 }

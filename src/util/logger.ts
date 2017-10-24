@@ -1,11 +1,11 @@
-// import debug = require("debug");
-
-// debug.enable("pi*|app*");
-// export type logType = debug.IDebugger;
+import { padRight } from './pad';
+const dateFormat = require('dateformat');
 
 export type logType = (...args:Array<any>) => void;
 
-let colorCursor = 0;
+// https://coderwall.com/p/yphywg/printing-colorful-text-in-terminal-when-run-node-js-script
+const reset = '\x1b[0m';
+let colorCursor = 1;
 const colors = [
   "\x1b[31m",
   "\x1b[32m",
@@ -26,7 +26,9 @@ function debug(namespace:string) {
   let color = colors[colorCursor++ % colors.length];
 
   return (...args:Array<any>) => {
-    let consoleArgs:Array<any> = [color, ns, '\x1b[0m'];
+    const now:Date = new Date();
+    const date = dateFormat(now, 'yyyy-mm-dd hh:MM:ss TT l');
+    let consoleArgs:Array<any> = ['\x1b[2m', date, reset, color, ns, reset];
     consoleArgs = consoleArgs.concat(args);
     console.log.apply(null, consoleArgs);
   };

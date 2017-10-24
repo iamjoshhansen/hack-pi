@@ -1,6 +1,6 @@
-import logger from './logger';
+import logger from './util/logger';
+import { logType } from './util/logger';
 import Emitter from './emitter';
-import { logType } from './logger';
 
 export default class Gpio {
 
@@ -23,7 +23,7 @@ export default class Gpio {
     if (this.val !== val) {
       this.val = val;
       this.log((this.val == 1) ? 'on' : 'off');
-      this.ev.trigger('change', this.val);
+      this.ev.emit('change', this.val);
       setTimeout(() => {
         callback.call(null, null, val);
       }, 1);
@@ -34,7 +34,7 @@ export default class Gpio {
     if (this.val !== val) {
       this.val = val;
       this.log((this.val == 1) ? 'on' : 'off');
-      this.ev.trigger('change', this.val);
+      this.ev.emit('change', this.val);
     }
   }
 

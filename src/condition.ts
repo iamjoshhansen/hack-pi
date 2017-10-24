@@ -1,6 +1,6 @@
 import Emitter from './emitter';
-import logger from './logger';
-import { logType } from './logger';
+import logger from './util/logger';
+import { logType } from './util/logger';
 
 export type ValidEvents = 'change' | 'activate' | 'deactivate';
 
@@ -31,8 +31,8 @@ export default class Condition extends Emitter {
   set (state:boolean) : this {
     if (state !== this.state) {
       this.state = state;
-      this.trigger('change', this.state);
-      this.trigger(this.state ? 'activate' : 'deactivate');
+      this.emit('change', this.state);
+      this.emit(this.state ? 'activate' : 'deactivate');
     }
 
     return this;

@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Home Automation Control Kernel (Pi)",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/iamjoshhansen/hack-pi.git"
+    "type": "git",
+    "url": "https://github.com/iamjoshhansen/hack-pi.git"
   },
   "main": "./dist/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "test": "test"
+    "dev": "node ./dist/index.js",
+    "test": "test",
+    "build": "webpack ./dist/index.js ./prod/index.js",
+    "start": "node ./prod/index.js"
   },
   "keywords": [
     "Pi",
@@ -17,12 +19,15 @@
   ],
   "author": "Joshua Hansen",
   "dependencies": {
-    "axios": "^0.16.2",
+    "dateformat": "^3.0.2",
+    "node-fetch": "^1.7.3",
     "onoff": "^1.1.7",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "@types/node-fetch": "^1.6.7",
     "@types/onoff": "0.0.27",
-    "@types/socket.io": "^1.4.31"
+    "@types/socket.io": "^1.4.31",
+    "webpack": "^3.8.1"
   }
 }

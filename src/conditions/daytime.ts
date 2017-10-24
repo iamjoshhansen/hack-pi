@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { AxiosResponse } from 'axios';
+import fetch from 'node-fetch';
 import Condition from '../condition';
 import Deferred from  '../deferred';
 import { coords } from '../config';
@@ -7,6 +6,22 @@ import { coords } from '../config';
 interface Resolution {
   rise: Date,
   set: Date,
+};
+
+interface ApiResponse {
+  results: {
+    sunrise:string,
+    sunset:string,
+    solar_noon:string,
+    day_length:string,
+    civil_twilight_begin:string,
+    civil_twilight_end:string,
+    nautical_twilight_begin:string,
+    nautical_twilight_end:string,
+    astronomical_twilight_begin:string,
+    astronomical_twilight_end:string,
+  },
+  status:string,
 };
 
 const endpoint = `https://api.sunrise-sunset.org/json?lat=${coords.lat}&lng=${coords.lng}&formatted=0`;
@@ -24,8 +39,11 @@ export default new Condition('daytime', guess, (self:Condition) => {
     const url:string = `${endpoint}&date=${today}`;
     const dfr:Deferred = new Deferred();
 
-    axios(url)
-      .then((response:AxiosResponse) => {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json: any) => {
 
         /* SAMPLE RESPONSE DATA
         {
@@ -45,11 +63,11 @@ export default new Condition('daytime', guess, (self:Condition) => {
         }
         */
 
-        // console.log('response.data: ', response.data);
+        // console.log('json: ', json);
 
         const resolution:Resolution = {
-          rise: new Date(`${response.data.results.sunrise}`),
-          set: new Date(`${response.data.results.sunset}`),
+          rise: new Date(`${json.results.sunrise}`),
+          set: new Date(`${json.results.sunset}`),
         };
 
         dfr.resolve(resolution);
@@ -109,6 +127,7 @@ export default new Condition('daytime', guess, (self:Condition) => {
       });
   }
 
+
   getAndHandleTimes();
 
   // Create daily interval, starting tomorrow
@@ -123,7 +142,9 @@ export default new Condition('daytime', guess, (self:Condition) => {
   const timeUntil_2am = now.getTime() - tomorrow_2am.getTime();
 
   setTimeout(() => {
+    getAndHandleTimes();
     setInterval(getAndHandleTimes, fullDay);
   }, timeUntil_2am);
+
 
 });
