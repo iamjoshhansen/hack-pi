@@ -50,10 +50,13 @@ daytime
     notifier(state ? 'Sunrise' : 'Sunset');
   });
 
+salt_lamp.activate();
+
 green_led.followPin(circle_button);
 
 circle_button.on('activate', () => {
   desk_lamp.toggle();
+  salt_lamp.toggle();
 });
 
 
