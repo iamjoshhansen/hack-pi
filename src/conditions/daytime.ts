@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import Condition from '../condition';
 import Deferred from  '../deferred';
 import { coords } from '../config';
+import readableDuration from '../util/readable-duration';
+import timestamp from '../util/timestamp';
 
 interface Resolution {
   rise: Date,
@@ -109,16 +111,20 @@ export default new Condition('daytime', guess, (self:Condition) => {
 
         // if the sun has not risen, set a timeout for that event
         if ( ! hasRisen) {
+          self.log(`Sunrise: ${timestamp(sun.rise)} -- ${readableDuration(timeUntilSunrise)}`);
+
           setTimeout(() => {
             self.set(true);
-          }, sun.rise.getTime() - now.getTime());
+          }, timeUntilSunrise);
         }
 
         // if the sun has not set, set a timeout for that event
         if ( ! hasSet) {
+          self.log(`Sunset: ${timestamp(sun.set)} -- ${readableDuration(timeUntilSunset)}`);
+
           setTimeout(() => {
             self.set(false);
-          }, sun.set.getTime() - now.getTime());
+          }, timeUntilSunset);
         }
       })
       .fail((er:Error) => {
@@ -132,14 +138,16 @@ export default new Condition('daytime', guess, (self:Condition) => {
 
   // Create daily interval, starting tomorrow
   const tomorrow_2am = new Date();
-  tomorrow_2am.setDate(tomorrow_2am.getTime() + fullDay);
+  tomorrow_2am.setDate(tomorrow_2am.getDate() + 1);
   tomorrow_2am.setHours(2);
   tomorrow_2am.setMinutes(0);
   tomorrow_2am.setSeconds(0);
   tomorrow_2am.setMilliseconds(0);
 
   const now:Date = new Date();
-  const timeUntil_2am = now.getTime() - tomorrow_2am.getTime();
+  const timeUntil_2am = tomorrow_2am.getTime() - now.getTime();
+
+  self.log('timeUntil_2am: ', readableDuration(timeUntil_2am));
 
   setTimeout(() => {
     getAndHandleTimes();

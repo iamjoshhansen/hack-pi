@@ -31,13 +31,13 @@ console.log(`
 88  88  YbodP  88 YY 88 888888     dP""""Yb 'YbodP'   88    YbodP  88 YY 88 dP""""Yb   88   88  YbodP  88  Y8      YboodP  YbodP  88  Y8   88   88  Yb  YbodP  88ood8     88  Yb 888888 88  Yb 88  Y8 888888 88ood8
 
 
-Version 3.0
 `);
 
-const log = logger('app');
+const now = new Date();
 
-const msg:String = 'Hello Sockets!';
-log(msg);
+const log = logger('app');
+log('Running Version: 3.0');
+log(now.toString());
 
 log(`The ${front_path_lights.label} are currently ${front_path_lights.state?'on':'off'}`);
 front_path_lights.followCondition(daytime, true);
