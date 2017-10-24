@@ -1,14 +1,14 @@
 import logger from './util/logger';
 import { logType } from './util/logger';
 import Emitter from './emitter';
-/*
 import { Gpio } from 'onoff';
-*/
+/*
 import Gpio from './onoff';
 console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
 console.log('\x1b[35m%s\x1b[0m','     Using Fake Pins     ');
 console.log('\x1b[31m%s\x1b[0m','!!!!!!!!!!!!!!!!!!!!!!!!!');
 console.log('');
+*/
 
 /*
 const Gpio    = require( (process.platform == 'darwin') ? './onoff' : 'onoff').Gpio;
