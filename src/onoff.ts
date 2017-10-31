@@ -15,14 +15,13 @@ export default class Gpio {
     this.val = 0;
     this.ev = new Emitter();
     this.log = logger(`pi.pin.${pin}`);
-    this.log('initialized');
 
   }
 
   write (val:0|1, callback:(err:Error, value:number) => void) {
     if (this.val !== val) {
       this.val = val;
-      this.log((this.val == 1) ? 'on' : 'off');
+      // this.log((this.val == 1) ? 'on' : 'off');
       this.ev.emit('change', this.val);
       setTimeout(() => {
         callback.call(null, null, val);
@@ -33,7 +32,7 @@ export default class Gpio {
   writeSync (val:0|1) {
     if (this.val !== val) {
       this.val = val;
-      this.log((this.val == 1) ? 'off' : 'on');
+      // this.log((this.val == 1) ? 'off' : 'on');
       this.ev.emit('change', this.val);
     }
   }

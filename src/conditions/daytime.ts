@@ -4,6 +4,7 @@ import Deferred from  '../deferred';
 import { coords } from '../config';
 import readableDuration from '../util/readable-duration';
 import timestamp from '../util/timestamp';
+import dateAndTimeStamp from '../util/date-and-time-stamp';
 
 interface Resolution {
   rise: Date,
@@ -116,6 +117,8 @@ export default new Condition('daytime', guess, (self:Condition) => {
           setTimeout(() => {
             self.set(true);
           }, timeUntilSunrise);
+        } else {
+          self.log(`Sun rose this morning at ${timestamp(sun.rise)}`);
         }
 
         // if the sun has not set, set a timeout for that event
@@ -125,6 +128,8 @@ export default new Condition('daytime', guess, (self:Condition) => {
           setTimeout(() => {
             self.set(false);
           }, timeUntilSunset);
+        } else {
+          self.log(`Sun set this evening at ${timestamp(sun.set)}`);
         }
       })
       .fail((er:Error) => {
@@ -147,7 +152,7 @@ export default new Condition('daytime', guess, (self:Condition) => {
   const now:Date = new Date();
   const timeUntil_2am = tomorrow_2am.getTime() - now.getTime();
 
-  self.log('timeUntil_2am: ', readableDuration(timeUntil_2am));
+  self.log(`Time Until 2am: ${readableDuration(timeUntil_2am)} at ${dateAndTimeStamp(tomorrow_2am)}`);
 
   setTimeout(() => {
     getAndHandleTimes();
