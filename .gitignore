@@ -8,6 +8,7 @@ yarn-error.log*
 test/unit/coverage
 test/e2e/reports
 selenium-debug.log
+weather-cache.json
 
 # Editor directories and files
 .idea
