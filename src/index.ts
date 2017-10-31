@@ -33,6 +33,10 @@ import daytime from './conditions/daytime';
 import notifier from './notifier';
 import dateAndTimeStamp from './util/date-and-time-stamp';
 import { temperature } from './values/weather';
+import io from './io';
+import { isConnected as isConnectedCondition } from './io';
+import { desk_lamp as desk_lamp_condition } from './conditions/pins';
+import { salt_lamp as salt_lamp_condition } from './conditions/pins';
 // import postMetric from './metrics';
 
 
@@ -45,6 +49,7 @@ log(dateAndTimeStamp(now));
 log(`${front_path_lights.label} are currently ${front_path_lights.state?'on':'off'}`);
 front_path_lights.followCondition(daytime, true);
 salt_lamp.followCondition(daytime, true);
+salt_lamp.followCondition(salt_lamp_condition);
 
 daytime
   .on('change', (state:boolean) => {
@@ -52,8 +57,9 @@ daytime
   });
 
 desk_lamp.activate();
+desk_lamp.followCondition(desk_lamp_condition);
 
-green_led.followPin(circle_button);
+green_led.followCondition(isConnectedCondition);
 
 circle_button.on('activate', () => {
   desk_lamp.toggle();
