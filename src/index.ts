@@ -37,13 +37,17 @@ import io from './io';
 import { isConnected as isConnectedCondition } from './io';
 import { desk_lamp as desk_lamp_condition } from './conditions/pins';
 import { salt_lamp as salt_lamp_condition } from './conditions/pins';
+import { bluebox_0 as bluebox_0_condition } from './conditions/pins';
+import { bluebox_1 as bluebox_1_condition } from './conditions/pins';
+import { bluebox_2 as bluebox_2_condition } from './conditions/pins';
+import { bluebox_3 as bluebox_3_condition } from './conditions/pins';
 // import postMetric from './metrics';
 
 
 const now = new Date();
 
 const log = logger('app');
-log('Running Version: 3.0');
+log('Running Version: 3.0.1');
 log(dateAndTimeStamp(now));
 
 log(`${front_path_lights.label} are currently ${front_path_lights.state?'on':'off'}`);
@@ -60,6 +64,12 @@ desk_lamp.activate();
 desk_lamp.followCondition(desk_lamp_condition);
 
 green_led.followCondition(isConnectedCondition);
+
+// Bluebox
+tbd_5.followCondition(bluebox_0_condition);
+tbd_6.followCondition(bluebox_1_condition);
+tbd_7.followCondition(bluebox_2_condition);
+tbd_8.followCondition(bluebox_3_condition);
 
 circle_button.on('activate', () => {
   desk_lamp.toggle();
