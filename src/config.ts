@@ -8,3 +8,5 @@ export const coords:{[key:string]:number} = {
 export const weatherAppId = '1a384f81c4c9a93880f3360a63df1c24';
 
 export const socketPort = 2031;
+
+export const socketAddressStore = 'http://iamjoshhansen.com/pi-ip/';
